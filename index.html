@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Receiver</title>
+</head>
+<body>
+    <div id="linkContainer">
+        <p>Waiting for code...</p>
+    </div>
+    
+    <script>
+        function updateLink(link) {
+            const linkContainer = document.getElementById('linkContainer');
+            linkContainer.innerHTML = `<p>${link}</p>`;
+        }
+        
+        // Periodically check for updates (adjust the interval as needed)
+        setInterval(() => {
+            fetch('/latest-link.txt') // You can create this file later
+                .then(response => response.text())
+                .then(link => {
+                    updateLink(link);
+                })
+                .catch(error => {
+                    console.error('Error fetching the latest link:', error);
+                });
+        }, 5000); // Check every 5 seconds (adjust as needed)
+    </script>
+</body>
+</html>
