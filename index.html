@@ -4,7 +4,7 @@
     <title>Reset Link Page</title>
     <script>
         function checkForResetLink() {
-            fetch('https://raw.githubusercontent.com/mrsupport/reset/main/contents/latest-link.txt')
+            fetch('https://raw.githubusercontent.com/mrsupport/reset/main/latest-link.txt')
                 .then(response => response.text())
                 .then(data => {
                     // Check if the content of latest-link.txt is not empty
