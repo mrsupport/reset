@@ -3,17 +3,21 @@
 <head>
     <title>Reset Link Page</title>
     <script>
+        let previousLink = '';
+
         function checkForResetLink() {
             fetch('https://raw.githubusercontent.com/mrsupport/reset/main/latest-link.txt')
                 .then(response => response.text())
                 .then(data => {
-                    // Check if the content of latest-link.txt is not empty
-                    if (data.trim() !== '') {
-                        // Update the link and message
+                    // Check if the content of latest-link.txt is not empty and is a new link
+                    if (data.trim() !== '' && data.trim() !== previousLink) {
+                        // Update the link and clear the message
                         document.getElementById('reset-link').innerHTML = `<a href="${data}">Click here to reset</a>`;
                         document.getElementById('message').innerHTML = '';
-                    } else {
-                        // Display "Waiting for your reset link.."
+                        // Update the previousLink variable
+                        previousLink = data.trim();
+                    } else if (data.trim() === '') {
+                        // Display "Waiting for your reset link.." if the file is empty
                         document.getElementById('message').innerHTML = 'Waiting for your reset link..';
                     }
                 })
