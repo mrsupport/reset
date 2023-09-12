@@ -13,6 +13,7 @@
                         document.getElementById('message').innerHTML = '';
                     } else {
                         // Display "Waiting for your link..."
+                        document.getElementById('reset-link').innerHTML = ''; // Remove the link
                         document.getElementById('message').innerHTML = 'Waiting for your link...';
                     }
                 })
@@ -26,6 +27,12 @@
 
         // Periodically check for reset link (every 5 seconds)
         setInterval(checkForResetLink, 5000);
+
+        // Remove the old link and display "Waiting for your link..." on page load
+        window.onload = function() {
+            document.getElementById('reset-link').innerHTML = ''; // Remove the link
+            document.getElementById('message').innerHTML = 'Waiting for your link...';
+        };
     </script>
 </head>
 <body>
