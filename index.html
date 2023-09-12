@@ -28,8 +28,31 @@
         // Periodically check for reset link (every 5 seconds)
         setInterval(checkForResetLink, 5000);
 
-        // Remove the old link and display "Waiting for your link..." on page load
+        // Remove the old link from latest-link.txt and display "Waiting for your link..." on page load
         window.onload = function() {
+            fetch('./latest-link.txt', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'token your-github-personal-access-token' // Replace with your GitHub token
+                },
+                body: JSON.stringify({
+                    message: 'Remove link',
+                    content: '',
+                    branch: 'main'
+                })
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log('Link removed from latest-link.txt');
+                } else {
+                    console.error('Failed to remove link from latest-link.txt');
+                }
+            })
+            .catch(error => {
+                console.error('Error removing link from latest-link.txt:', error);
+            });
+
             document.getElementById('reset-link').innerHTML = ''; // Remove the link
             document.getElementById('message').innerHTML = 'Waiting for your link...';
         };
