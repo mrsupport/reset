@@ -1,32 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Receiver</title>
-</head>
-<body>
-    <div id="linkContainer">
-        <p>Waiting for code...</p>
-    </div>
-    
+    <title>Reset Link Page</title>
     <script>
-        function updateLink(link) {
-            const linkContainer = document.getElementById('linkContainer');
-            linkContainer.innerHTML = `<p>${link}</p>`;
-        }
-        
-        // Periodically check for updates (adjust the interval as needed)
-        setInterval(() => {
-            fetch('/latest-link.txt') // You can create this file later
+        function checkForResetLink() {
+            fetch('https://raw.githubusercontent.com/mrsupport/reset/main/contents/latest-link.txt')
                 .then(response => response.text())
-                .then(link => {
-                    updateLink(link);
+                .then(data => {
+                    // Check if the content of latest-link.txt is not empty
+                    if (data.trim() !== '') {
+                        // Update the link and message
+                        document.getElementById('reset-link').innerHTML = `<a href="${data}">Click here to reset</a>`;
+                        document.getElementById('message').innerHTML = '';
+                    } else {
+                        // Display "Waiting for your reset link.."
+                        document.getElementById('message').innerHTML = 'Waiting for your reset link..';
+                    }
                 })
                 .catch(error => {
-                    console.error('Error fetching the latest link:', error);
+                    console.error('Error checking for reset link:', error);
                 });
-        }, 5000); // Check every 5 seconds (adjust as needed)
+        }
+
+        // Check for reset link initially
+        checkForResetLink();
+
+        // Periodically check for reset link (every 5 seconds)
+        setInterval(checkForResetLink, 5000);
     </script>
+</head>
+<body>
+    <h1>Reset Link</h1>
+    <p id="message">Waiting for your reset link..</p>
+    <p id="reset-link"></p>
 </body>
 </html>
