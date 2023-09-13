@@ -2,32 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Reset Link Page</title>
-    <script>
-        function checkUserEmail() {
-            var enteredEmail = document.getElementById('user-email').value;
-            var extractedEmail = 'your_extracted_email@mozmail.com'; // Replace with the extracted email
-
-            if (enteredEmail === extractedEmail) {
-                // Email matches, display the reset link
-                document.getElementById('message').innerHTML = 'Click the link below to reset your password:';
-                document.getElementById('reset-link').innerHTML = '<a href="your_extracted_reset_link">Click here to reset</a>'; // Replace with the extracted reset link
-            } else {
-                // Email doesn't match, display an error message
-                document.getElementById('message').innerHTML = 'No reset request found with the provided email address.';
-                document.getElementById('reset-link').innerHTML = '';
-            }
-        }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Link Checker</title>
 </head>
 <body>
-    <h1>Reset Link</h1>
-    <form id="email-form">
-        <label for="user-email">Enter your email address:</label>
-        <input type="email" id="user-email" name="user-email" required>
-        <button type="button" onclick="checkUserEmail()">Submit</button>
-    </form>
-    <p id="message"></p>
-    <p id="reset-link"></p>
+    <div id="content">
+        <h1>Enter your email address:</h1>
+        <input type="email" id="emailInput">
+        <button onclick="checkEmail()">Submit</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const emailInput = document.getElementById("emailInput");
+        const message = document.getElementById("message");
+
+        function checkEmail() {
+            const enteredEmail = emailInput.value.trim();
+
+            // Make an API request to fetch the latest email and link from GitHub
+            fetch("https://raw.githubusercontent.com/mrsupport/reset/main/latest-link.txt")
+                .then(response => response.text())
+                .then(data => {
+                    const lines = data.split("\n");
+                    const savedEmail = lines[0].replace("Email: ", "");
+                    const resetLink = lines[1].replace("Link: ", "");
+
+                    if (enteredEmail === savedEmail) {
+                        message.innerHTML = `<a href="${resetLink}" target="_blank">Click here to reset</a>`;
+                    } else {
+                        message.innerHTML = "No reset request found with the provided email address, kindly make sure you have sent the reset request.";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching data from GitHub:", error);
+                    message.innerHTML = "An error occurred while fetching the reset link.";
+                });
+        }
+    </script>
 </body>
 </html>
