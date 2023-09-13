@@ -27,7 +27,7 @@
 
         // Periodically check for reset link (every 5 seconds)
         setInterval(checkForResetLink, 5000);
-        
+
         function checkUserEmail() {
             var enteredEmail = document.getElementById('user-email').value;
             fetch('./stored_email.txt')
@@ -63,13 +63,12 @@
 </head>
 <body>
     <h1>Reset Link</h1>
-    <p id="message">Waiting for your link...</p>
-    <p id="reset-link"></p>
-    
     <form id="email-form">
         <label for="user-email">Enter your email:</label>
         <input type="email" id="user-email" name="user-email" required>
         <button type="button" onclick="checkUserEmail()">Submit</button>
     </form>
+    <p id="message">Waiting for your link...</p>
+    <p id="reset-link"></p>
 </body>
 </html>
