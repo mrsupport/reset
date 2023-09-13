@@ -2,6 +2,12 @@
 <html>
 <head>
     <title>Reset Link Page</title>
+    <style>
+        /* CSS to hide the link section by default */
+        #reset-link-section {
+            display: none;
+        }
+    </style>
     <script>
         function checkForResetLink() {
             fetch('./latest-link.txt')
@@ -11,6 +17,8 @@
                         // Update the link and clear the message
                         document.getElementById('reset-link').innerHTML = `<a href="${data}">Click here to reset</a>`;
                         document.getElementById('message').innerHTML = '';
+                        // Display the link section
+                        document.getElementById('reset-link-section').style.display = 'block';
                     } else {
                         // Display "Waiting for your link..."
                         document.getElementById('reset-link').innerHTML = ''; // Remove the link
@@ -41,6 +49,8 @@
                                 if (data.trim() !== '') {
                                     document.getElementById('reset-link').innerHTML = `<a href="${data}">Click here to reset</a>`;
                                     document.getElementById('message').innerHTML = '';
+                                    // Display the link section
+                                    document.getElementById('reset-link-section').style.display = 'block';
                                 } else {
                                     document.getElementById('reset-link').innerHTML = '';
                                     document.getElementById('message').innerHTML = 'Waiting for your link...';
@@ -68,7 +78,10 @@
         <input type="email" id="user-email" name="user-email" required>
         <button type="button" onclick="checkUserEmail()">Submit</button>
     </form>
-    <p id="message">Waiting for your link...</p>
-    <p id="reset-link"></p>
+    <!-- Section to display the link (initially hidden) -->
+    <div id="reset-link-section">
+        <p id="message">Waiting for your link...</p>
+        <p id="reset-link"></p>
+    </div>
 </body>
 </html>
