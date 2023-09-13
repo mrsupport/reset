@@ -3,8 +3,8 @@
 <head>
     <title>Reset Link Page</title>
     <style>
-        /* CSS to hide the link section by default */
-        #reset-link-section {
+        /* CSS to hide the entire page by default */
+        body {
             display: none;
         }
     </style>
@@ -69,10 +69,15 @@
                     console.error('Error retrieving stored email:', error);
                 });
         }
+
+        // Show the entire page when it's ready
+        document.addEventListener('DOMContentLoaded', function () {
+            document.body.style.display = 'block';
+        });
     </script>
 </head>
 <body>
-    <h1>Reset Link</h1>
+    <!-- Section to display the "Enter your email" form -->
     <form id="email-form">
         <label for="user-email">Enter your email:</label>
         <input type="email" id="user-email" name="user-email" required>
