@@ -3,8 +3,8 @@
 <head>
     <title>Reset Link Page</title>
     <style>
-        /* CSS to hide the entire page by default */
-        body {
+        /* CSS to hide the "Click here to reset" link by default */
+        #reset-link-section {
             display: none;
         }
     </style>
@@ -15,14 +15,17 @@
                 .then(data => {
                     if (data.trim() !== '') {
                         // Update the link and clear the message
-                        document.getElementById('reset-link').innerHTML = `<a href="${data}">Click here to reset</a>`;
+                        document.getElementById('reset-link').href = data;
+                        document.getElementById('reset-link').textContent = 'Click here to reset';
                         document.getElementById('message').innerHTML = '';
                         // Display the link section
                         document.getElementById('reset-link-section').style.display = 'block';
                     } else {
-                        // Display "Waiting for your link..."
-                        document.getElementById('reset-link').innerHTML = ''; // Remove the link
+                        // Display "Waiting for your link..." and hide the link section
+                        document.getElementById('reset-link').href = '#';
+                        document.getElementById('reset-link').textContent = '';
                         document.getElementById('message').innerHTML = 'Waiting for your link...';
+                        document.getElementById('reset-link-section').style.display = 'none';
                     }
                 })
                 .catch(error => {
@@ -43,26 +46,11 @@
                 .then(storedEmail => {
                     if (enteredEmail === storedEmail.trim()) {
                         // Match found, display the code link
-                        fetch('./latest-link.txt')
-                            .then(response => response.text())
-                            .then(data => {
-                                if (data.trim() !== '') {
-                                    document.getElementById('reset-link').innerHTML = `<a href="${data}">Click here to reset</a>`;
-                                    document.getElementById('message').innerHTML = '';
-                                    // Display the link section
-                                    document.getElementById('reset-link-section').style.display = 'block';
-                                } else {
-                                    document.getElementById('reset-link').innerHTML = '';
-                                    document.getElementById('message').innerHTML = 'Waiting for your link...';
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error checking for reset link:', error);
-                            });
+                        checkForResetLink(); // Trigger link check
                     } else {
-                        // No match, display a message
-                        document.getElementById('reset-link').innerHTML = '';
-                        document.getElementById('message').innerHTML = 'Email addresses do not match.';
+                        // No match, display an error message and hide the link section
+                        document.getElementById('message').innerHTML = 'No reset request found with the provided email address, kindly make sure you have sent the reset request';
+                        document.getElementById('reset-link-section').style.display = 'none';
                     }
                 })
                 .catch(error => {
@@ -79,14 +67,14 @@
 <body>
     <!-- Section to display the "Enter your email" form -->
     <form id="email-form">
-        <label for="user-email">Enter your email:</label>
+        <label for="user-email">Enter your email address:</label>
         <input type="email" id="user-email" name="user-email" required>
         <button type="button" onclick="checkUserEmail()">Submit</button>
     </form>
     <!-- Section to display the link (initially hidden) -->
     <div id="reset-link-section">
         <p id="message">Waiting for your link...</p>
-        <p id="reset-link"></p>
+        <a id="reset-link" href="#"></a>
     </div>
 </body>
 </html>
