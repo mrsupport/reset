@@ -1,80 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Reset Link Page</title>
-    <style>
-        /* CSS to hide the "Click here to reset" link by default */
-        #reset-link-section {
-            display: none;
-        }
-    </style>
     <script>
-        function checkForResetLink() {
-            fetch('./latest-link.txt')
-                .then(response => response.text())
-                .then(data => {
-                    if (data.trim() !== '') {
-                        // Update the link and clear the message
-                        document.getElementById('reset-link').href = data;
-                        document.getElementById('reset-link').textContent = 'Click here to reset';
-                        document.getElementById('message').innerHTML = '';
-                        // Display the link section
-                        document.getElementById('reset-link-section').style.display = 'block';
-                    } else {
-                        // Display "Waiting for your link..." and hide the link section
-                        document.getElementById('reset-link').href = '#';
-                        document.getElementById('reset-link').textContent = '';
-                        document.getElementById('message').innerHTML = 'Waiting for your link...';
-                        document.getElementById('reset-link-section').style.display = 'none';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error checking for reset link:', error);
-                });
-        }
-
-        // Check for reset link initially
-        checkForResetLink();
-
-        // Periodically check for reset link (every 5 seconds)
-        setInterval(checkForResetLink, 5000);
-
         function checkUserEmail() {
             var enteredEmail = document.getElementById('user-email').value;
-            fetch('./stored_email.txt')
-                .then(response => response.text())
-                .then(storedEmail => {
-                    if (enteredEmail === storedEmail.trim()) {
-                        // Match found, display the code link
-                        checkForResetLink(); // Trigger link check
-                    } else {
-                        // No match, display an error message and hide the link section
-                        document.getElementById('message').innerHTML = 'No reset request found with the provided email address, kindly make sure you have sent the reset request';
-                        document.getElementById('reset-link-section').style.display = 'none';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error retrieving stored email:', error);
-                });
-        }
+            var extractedEmail = 'your_extracted_email@mozmail.com'; // Replace with the extracted email
 
-        // Show the entire page when it's ready
-        document.addEventListener('DOMContentLoaded', function () {
-            document.body.style.display = 'block';
-        });
+            if (enteredEmail === extractedEmail) {
+                // Email matches, display the reset link
+                document.getElementById('message').innerHTML = 'Click the link below to reset your password:';
+                document.getElementById('reset-link').innerHTML = '<a href="your_extracted_reset_link">Click here to reset</a>'; // Replace with the extracted reset link
+            } else {
+                // Email doesn't match, display an error message
+                document.getElementById('message').innerHTML = 'No reset request found with the provided email address.';
+                document.getElementById('reset-link').innerHTML = '';
+            }
+        }
     </script>
 </head>
 <body>
-    <!-- Section to display the "Enter your email" form -->
+    <h1>Reset Link</h1>
     <form id="email-form">
         <label for="user-email">Enter your email address:</label>
         <input type="email" id="user-email" name="user-email" required>
         <button type="button" onclick="checkUserEmail()">Submit</button>
     </form>
-    <!-- Section to display the link (initially hidden) -->
-    <div id="reset-link-section">
-        <p id="message">Waiting for your link...</p>
-        <a id="reset-link" href="#"></a>
-    </div>
+    <p id="message"></p>
+    <p id="reset-link"></p>
 </body>
 </html>
