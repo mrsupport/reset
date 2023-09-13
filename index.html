@@ -3,6 +3,35 @@
 <head>
     <title>Reset Link Page</title>
     <script>
+        // Function to remove the link from latest-link.txt
+        function removeLink() {
+            fetch('./latest-link.txt', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'token your-github-personal-access-token' // Replace with your GitHub token
+                },
+                body: JSON.stringify({
+                    message: 'Remove link',
+                    content: '',
+                    branch: 'main'
+                })
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log('Link removed from latest-link.txt');
+                } else {
+                    console.error('Failed to remove link from latest-link.txt');
+                }
+            })
+            .catch(error => {
+                console.error('Error removing link from latest-link.txt:', error);
+            });
+        }
+
+        // Register the removeLink function to run when the page is closed or refreshed
+        window.addEventListener('beforeunload', removeLink);
+
         function checkForResetLink() {
             fetch('./latest-link.txt')
                 .then(response => response.text())
