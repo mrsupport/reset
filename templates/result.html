@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Verification Result</title>
+</head>
+<body>
+    <h1>Verification Result</h1>
+    {% if link %}
+        <p>Reset Link: <a href="{{ link }}">{{ link }}</a></p>
+    {% else %}
+        <p>{{ message }}</p>
+    {% endif %}
+</body>
+</html>
