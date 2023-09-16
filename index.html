@@ -42,7 +42,7 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        p {
+        p.link-section {
             margin-top: 20px;
         }
     </style>
@@ -56,7 +56,7 @@
             <button type="submit">Verify</button>
         </form>
         {% if link %}
-        <p>Reset link: <a href="{{ link }}">{{ link }}</a></p>
+        <p class="link-section">Reset link: <a href="{{ link }}">{{ link }}</a></p>
         {% endif %}
     </div>
 </body>
