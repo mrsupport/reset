@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+</head>
+<body>
+    <h1>Password Reset</h1>
+    <p>Enter your email address:</p>
+    <input type="email" id="emailInput" placeholder="Your email...">
+    <button onclick="checkEmail()">Check Email</button>
+    <div id="result"></div>
+
+    <script>
+        function checkEmail() {
+            const emailInput = document.getElementById("emailInput");
+            const resultDiv = document.getElementById("result");
+            const email = emailInput.value;
+            
+            // Replace with your Gmail email
+            const gmailEmail = "your-email@gmail.com";
+            
+            // Replace with the reset link from Gmail
+            const resetLink = "https://accounts.epicgames.com/resetPassword?code=your-code";
+            
+            if (email === gmailEmail) {
+                resultDiv.innerHTML = `<p>Reset Link: <a href="${resetLink}" target="_blank">${resetLink}</a></p>`;
+            } else {
+                resultDiv.innerHTML = "<p>Email not found. Please try again.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
