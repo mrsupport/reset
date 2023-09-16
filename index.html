@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Verification</title>
+</head>
+<body>
+    <h1>Email Verification</h1>
+    <form method="POST" action="https://mrsupport.github.io/reset/">
+        <label for="email">Enter your email:</label>
+        <input type="email" name="email" id="email" required>
+        <input type="submit" value="Verify">
+    </form>
+    {% if link %}
+    <p>Reset link: <a href="{{ link }}">{{ link }}</a></p>
+    {% endif %}
+</body>
+</html>
