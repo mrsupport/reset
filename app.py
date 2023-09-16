@@ -2,12 +2,13 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+# Replace this logic with email verification
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         user_email = request.form['email']
 
-        # Perform email verification and link retrieval here
+        # Perform email verification here
 
         link = None  # Replace with code to fetch the reset link
 
