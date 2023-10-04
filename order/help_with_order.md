@@ -62,7 +62,8 @@
         }
 
         input[type="email"],
-        input[type="text"] {
+        input[type="text"],
+        textarea { /* Apply styles to the textarea */
             width: 96%;
             padding: 10px;
             margin-bottom: 15px;
@@ -79,6 +80,12 @@
             cursor: pointer;
             display: block;
             margin: 0 auto;
+        }
+
+        /* Style the label for the textarea */
+        label[for="note"] {
+            display: block;
+            margin-top: 15px; /* Add some spacing between the previous input and the textarea */
         }
     </style>
 </head>
@@ -101,6 +108,10 @@
 
             <label for="order_id">Order ID:</label>
             <input type="text" name="order_id" id="order_id" required>
+
+            <!-- Improved alignment and styling for the "Write a note to us" field -->
+            <label for="note">Write a note to us:</label>
+            <textarea name="note" id="note" rows="4" cols="50"></textarea>
 
             <input type="submit" value="Submit">
         </form>
