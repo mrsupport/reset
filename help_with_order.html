@@ -9,7 +9,7 @@
         body {
           background-image: url('https://wallpaperset.com/w/full/e/b/d/193679.jpg');
         }
-        </style>
+    </style>
     <style>
         /* Add CSS styles here */
         body {
@@ -63,7 +63,7 @@
 
         input[type="email"],
         input[type="text"],
-        textarea { /* Apply styles to the textarea */
+        textarea {
             width: 96%;
             padding: 10px;
             margin-bottom: 15px;
@@ -82,10 +82,25 @@
             margin: 0 auto;
         }
 
-        /* Style the label for the textarea */
         label[for="note"] {
             display: block;
-            margin-top: 15px; /* Add some spacing between the previous input and the textarea */
+            margin-top: 15px;
+        }
+
+        /* Additional styling for the Discord link */
+        .discord-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .discord-link a {
+            text-decoration: none;
+            background-color: #7289DA;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -109,12 +124,17 @@
             <label for="order_id">Order ID:</label>
             <input type="text" name="order_id" id="order_id" required>
 
-            <!-- Improved alignment and styling for the "Write a note to us" field -->
             <label for="note">Write a note to us:</label>
             <textarea name="note" id="note" rows="4" cols="50"></textarea>
 
             <input type="submit" value="Submit">
         </form>
+
+        <!-- Contact Us section with Discord link -->
+        <div class="discord-link">
+            <p>Need further assistance? Contact us on Discord:</p>
+            <a href="https://discord.gg/9yb3bGUEM" target="_blank">Join Our Discord</a>
+        </div>
     </div>
 </body>
 </html>
