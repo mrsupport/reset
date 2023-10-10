@@ -6,12 +6,7 @@
     <title>Help with Order</title>
     <link rel="icon" type="image/x-icon" href="noodles.ico">
     <style>
-        body {
-          background-image: url('https://wallpaperset.com/w/full/e/b/d/193679.jpg');
-        }
-    </style>
-    <style>
-        /* Add CSS styles here */
+        /* Add your existing CSS styles here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -71,7 +66,8 @@
             border-radius: 5px;
         }
 
-        input[type="submit"] {
+        input[type="submit"],
+        button {
             background-color: #007bff;
             color: #fff;
             padding: 10px 20px;
@@ -80,6 +76,7 @@
             cursor: pointer;
             display: block;
             margin: 0 auto;
+            font-size: 18px;
         }
 
         label[for="note"] {
@@ -111,7 +108,9 @@
 
     <div class="container">
         <div class="message">
-            <p>If you've made a purchase, kindly submit the information in the form below. You will be notified via email once your order is ready. Orders are typically processed within 30 minutes but may take up to 12 hours.</p>
+            <p>If you've made a purchase, kindly submit the information in the form below.You will be notified via email once your order is ready.
+                 Orders are typically processed within 30 minutes but may take up to 12 hours.
+                To Track Your Order,enter the Redeem Code you received in the Box below!</p>
         </div>
 
         <form method="POST" action="https://mrcliff-reset-7af98657daa2.herokuapp.com/reset/submit_order">
@@ -124,11 +123,23 @@
             <label for="order_id">Order ID:</label>
             <input type="text" name="order_id" id="order_id" required>
 
+            <label for="order_id">Redeem Code:</label>
+            <input type="text" name="order_id" id="order_id" required>
+
             <label for="note">Write a note to us:</label>
             <textarea name="note" id="note" rows="4" cols="50"></textarea>
 
             <input type="submit" value="Submit">
         </form>
+
+        <!-- Tracking form -->
+        <form id="track-order-form">
+            <label for="redeem_code">Enter Redeem Code:</label>
+            <input type="text" name="redeem_code" id="redeem_code" required>
+            <button type="button" onclick="trackOrder()">Track Order</button>
+        </form>
+
+        <div id="order-details"></div>
 
         <!-- Contact Us section with Discord link -->
         <div class="discord-link">
@@ -136,5 +147,31 @@
             <a href="https://discord.gg/9yb3bGUEM" target="_blank">Join Our Discord</a>
         </div>
     </div>
+
+    <!-- JavaScript for order tracking -->
+    <script>
+        function trackOrder() {
+            const redeemCode = document.getElementById("redeem_code").value;
+
+            fetch("https://mrcliff-reset-7af98657daa2.herokuapp.com/reset/track_order", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `redeem_code=${redeemCode}`,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                const orderDetailsDiv = document.getElementById("order-details");
+                if (data) {
+                    // Display order details
+                    orderDetailsDiv.innerHTML = `<p>Order Details:</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                } else {
+                    // Display error message
+                    orderDetailsDiv.innerHTML = "Order not found. Please check your Redeem Code.";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
